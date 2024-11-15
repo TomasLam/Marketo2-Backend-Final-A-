@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    var categories = new List<string> { "All", "New", "Popular", "Featured" };
+}
+@model IEnumerable<Product> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Tutorial">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="js/script.js"></script>
+    
+    <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Min Hemsida</title>
+</head>
+<body>
+
+    <partial name="_Header"/>
+
+
+    <section class="First-placeholder">
+        <div class="first-text">
+            <p class="first-shopnow"><span class="firstshop-text">WELCOME TO BMARKETO SHOP</span> <br>
+                <span class="sec-shopnow"><b>Exclusive Chair <br>gold Collections.</b></b></span>
+            </p>
+            <a class="shopnow-btn" href="#">
+                <span class="shopbtn-left"></span>
+                SHOP NOW
+                <span class="shopbtn-right"></span>
+            </a>
+        </div>
+
+        <div class="">
+            <img class="holder-625x647" src="~/images/625x647.svg">
+        </div>
+    </section>  
+
+    <section class="Best-collection" style="margin-left: 0%;">
+        <div>
+            <p class="collection-text"><b>Best Collection</b></p>
+        </div>
+
+        <div class="Collection-category">
+            <a href="#all">All /</a>
+            <a href="#bags">Bags /</a> 
+            <a href="#dress">Dress /</a> 
+            <a href="#decoration">Decoration /</a> 
+            <a href="#essentials">Essentials /</a> 
+            <a href="#interior">Interior /</a> 
+            <a href="#laptop">Laptop /</a> 
+            <a href="#mobile">Mobile /</a> 
+            <a href="#beauty">Beauty</a>
+        </div>
+    </section>
+
+
+<section class="category-toggle" style="display: flex; margin-left: 2.5%; margin-top: 5%;">
+    <div class="category-nav">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+            </button>
+             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                <li><a class="dropdown-item" href="@Url.Action("Index", "Product", new { category = "All" })"></a></li>
+                @foreach (var category in categories)
+                {
+                    <li><a class="dropdown-item" href="@Url.Action("Index", "Product", new { category = category })">
+                         @category
+                    </a></li>
+                }
+             </ul>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <section class="product-list" style="display: flex; justify-content: center; align-items: center; margin-left:13%;">
+        <div class="row">
+           @foreach (var product in Model ?? Enumerable.Empty<Product>())
+           {
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="@Url.Content(product.ImageUrl ?? "~/images/270x295.svg")" class="card-img-top" alt="@product.Name" style="width: 70%; height: 70%;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            
+                            <p class="card-price">$@product.Price</p>
+                            <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-info">Show details</a>
+                        </div>
+                    </div>
+                </div>
+           }
+        </div>
+    </section>
+
+    <div class="btn-load">
+        <button class="load-more-btn">
+            Load More <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+    </div>
+
+    <partial name="_BestPrice"/>
+    <partial name="_TopSell"/>
+    <partial name="_LampCard"/>
+
+
+    <div class="Arrows">
+        <i class="fa-solid fa-square-caret-left"></i>
+        <i class="fa-solid fa-square-caret-right"></i>         
+    </div>
+
+    <section class="Lamp-description"></section>
+
+    <div class="subscript-form">
+        <form id="newsletter-form">
+            <input class="form-style-home" type="email" id="email" name="email" placeholder="Enter your email" required style="color: black;">
+            <button class="sub-button" type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <partial name="_Footer"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
